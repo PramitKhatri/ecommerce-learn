@@ -1,0 +1,92 @@
+Django -> web framework of python
+
+Its a MVT design Module
+M- Model (database)
+v- View (functions)
+T -Template (UI: User Interface)
+
+
+1st step: Install python
+2nd step: Install django by typing in cmd ->py -m pip install Django
+	   if this doesn't work and shows no module found, you need to install pip which is a package installer for python.
+type in cmd : -> py -m ensurepip --upgrade
+This will install pip then you can install django
+
+3: in cmd -> django-admin
+this should show available sub command which ensures django has been succesfully installed.
+
+4: create a folder where you are going to create a django project
+
+5: In that folder, open the terminal and type -> django-admin startproject projectname 
+this should create a new folder inside the project folder with the respective project name
+6: open that folder and you should see another folder with the same name and a file called manage.py
+7: open the terminal again on that folder that consists manage.py
+8: type: -> python manage.py runserver
+9: open the given server link in your browser to check if its working or not.
+10: you should not be able to type again in that terminal, to break from it, click 'Ctrl+C'
+11: Now you have to migrate your model to run project.
+to get it ready for migration, type in cmd: -> py
+thon manage.py makemigrations
+
+12: Now migrate it, type: -> python manage.py migrate
+
+13: Now you have to create a super admin 
+type in cmd: -> python manage.py createsuperuser
+username: any name(admin)
+email: not compulsory
+password: *anything*  (admin) /* password won't be seen when you type so don't be alarmed.
+
+14: Now run the server again, type: -> python manage.py runserver
+
+15: go to your browser type:  http://127.0.0.1:8000/admin
+
+this should ask for username and password. this is from before when you created the super admin.
+
+pressing the 'Ctrl+C' twice will stop the server and has to be started again if required.
+
+// typing -> python manage.py runserver 5000 'will start the server at http://127.0.0.1:5000 
+// this is to change the server quote number if numerous servers are required. it can be any number maybe?!
+
+
+16:  Now open the projectname folder in vs code.
+
+17:  Now we create a app which helps on working on various sectors of the django project separately since giving separate url paths can take a lot of space and be confusing.
+
+18:  open the terminal on the folder which consists of manage.py and type: -> python manage.py startapp products
+This should create a new folder along with manage .py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+later.....
+search crispy forms django in google 
+go to :https://django-crispy-forms.readthedocs.io/en/latest/install.html
+in terminal where manage.py is :pip install django-crispy-forms
+copy the installed apps in settings installed apps.
+
+right below it is template packs
+go to crispy-bootstrap4
+terminal: pip install crispy-bootstrap5
+ copy the installed apps in settings installed apps.
+
+
+
+
+
+
+
+//to creATE AN AOO
+python manage.py startapp accounts

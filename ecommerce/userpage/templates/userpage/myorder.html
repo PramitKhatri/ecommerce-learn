@@ -1,0 +1,59 @@
+{% extends 'layouts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Ecommerce-order</title>
+{% include 'userpage/header.html' %}
+{% endblock %}
+
+
+{% block main-content %}
+
+<!-- start of cart section -->
+<div class="container">
+    {% for msg in messages %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success">
+                {{msg}}
+            </div>
+            {% endif %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{msg}}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+    <div class="row d-flex justify-content-center">
+        <table class="table table-bordered table-striped my-5">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total price</th>
+                    <th>Product image</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}  <!-- items is from my_order function context-->
+                <tr>
+                    <td>{{item.product.product_name}}</td> <!-- here product is a foreign key which we get in my_order function in views.py-->
+                    <td>{{item.quantity}}</td>
+                    <td>Rs. {{item.total_price}}</td>
+                    <td><img src="/{{item.product.product_image}}" alt="" width="100"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- end of  cart section -->
+
+
+<!-- <img src="{% static 'images/a.jpg' %}" alt="" width="400"> -->
+{% include 'userpage/footer.html' %}
+{% endblock %}

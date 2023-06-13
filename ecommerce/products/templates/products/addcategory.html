@@ -1,0 +1,45 @@
+{% extends 'layouts.html' %}
+<!-- {% load static %} -->
+<!-- {% load bootstrap %} -->
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Add Category</title>
+<style>
+    .asteriskField{
+        color: red;
+    }
+</style>
+{% endblock %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-5">
+            <h2 class="text-center text-muted">Add Category Form</h2>
+            {% for msg in messages %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <div class="alert alert-success">
+                {{msg}}
+            </div>
+            {% endif %}
+
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <div class="alert alert-danger">
+                {{msg}}
+            </div>
+            {% endif %}
+
+            {% endfor %}
+            <form action="" class="shadow p-3" method="post">
+                {% csrf_token %}
+                {{ forms | crispy }}
+                <div class="my-2">
+                    <input type="submit" value="add" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock%}
