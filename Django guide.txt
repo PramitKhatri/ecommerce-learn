@@ -90,3 +90,6 @@ terminal: pip install crispy-bootstrap5
 
 //to creATE AN AOO
 python manage.py startapp accounts
+
+
+pip install requests

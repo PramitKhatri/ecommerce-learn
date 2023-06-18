@@ -26,15 +26,18 @@ def register_user(request):
     return render(request,'accounts/register.html',context)
 
 
-def post_login(request):
+def post_login(request):  #user login
     if request.method=='POST':
         form=LoginForm(request.POST)
         if form.is_valid():
             data=form.cleaned_data
             user=authenticate(request,username=data['username'],password=data['password'])
             if user is not None:
-                login(request, user)
-                return redirect(('/products/show'))
+                login(request,user)
+                if user.is_staff:  #is_staff is and attribute of super user in auth.user db
+                    return redirect('/admins/dashboard')
+                else:
+                    return redirect('/')
             else:
                 messages.add_message(request, messages.ERROR, 'username or password doesnot match')
                 return render(request,'accounts/login.html', {'forms':form})

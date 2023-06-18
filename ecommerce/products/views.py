@@ -3,12 +3,16 @@ from django.http import HttpResponse
 from . models import Product,Category
 from . forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from userpage.auth import admin_only
 # Create your views here.
 
 def index(request):
     return HttpResponse('this is from products app')
 
 # to fetch all data from the database
+@login_required
+@admin_only
 def showproduct(request):
     products=Product.objects.all() #Product.object.all() is same as SELECT * FROM Product in SQL. it is the python version ;)
     context={
@@ -17,6 +21,8 @@ def showproduct(request):
     return render(request,'products/product.html',context)
 
 # to show add category form and post category
+@login_required
+@admin_only
 def addcategory(request):
     # data processing
     if request.method=='POST':
@@ -35,6 +41,9 @@ def addcategory(request):
     # to load add category forms
     return render(request, 'products/addcategory.html',context)
 
+
+@login_required
+@admin_only
 def postproduct(request):
     if request.method=='POST':
         form=ProductForm(request.POST,request.FILES)
@@ -52,6 +61,8 @@ def postproduct(request):
     return render(request, 'products/addproduct.html',context)
 
     # to show categories in allcategory.html
+@login_required
+@admin_only
 def showcategory(request):
     category=Category.objects.all()
 
@@ -61,6 +72,8 @@ def showcategory(request):
     return render(request, 'products/allcategory.html',context)
 
 # delete the category
+@login_required
+@admin_only
 def deletecategory(request,category_id):
     category=Category.objects.get(id=category_id) # get() is for gettting single elements to delete them individually
     category.delete()
@@ -69,6 +82,8 @@ def deletecategory(request,category_id):
 
 
 # update category
+@login_required
+@admin_only
 def updatecategory(request,category_id):
     instance=Category.objects.get(id=category_id)  #instance is a variable and can be anything
 
@@ -90,6 +105,8 @@ def updatecategory(request,category_id):
 
 
 # delete the products
+@login_required
+@admin_only
 def deleteproduct(request,product_id):
     product=Product.objects.get(id=product_id)
     product.delete()
@@ -97,6 +114,8 @@ def deleteproduct(request,product_id):
     return redirect('/products/show')
     
 # update product
+@login_required
+@admin_only
 def updateproduct(request,product_id):
     instance=Product.objects.get(id=product_id)  #instance is a variable and can be anything
 

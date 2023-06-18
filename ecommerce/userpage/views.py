@@ -33,7 +33,7 @@ def add_to_cart(request,product_id):
     check_item_presence=Cart.objects.filter(user=user,product=product)
     if check_item_presence:
         messages.add_message(request, messages.ERROR, 'product already in the cart')
-        return redirect('/products')
+        return redirect('/cart')
     else:
         cart=Cart.objects.create(product=product,user=user)
         if cart:
@@ -123,3 +123,33 @@ def my_order(request):
     }
     return render(request,'userpage/myorder.html',context)
 
+
+import requests as req
+def esewa_verify(request):
+    import xml.etree.ElementTree as ET
+    o_id=request.GET.get('o_id')
+    amount=request.GET.get('amt')
+    refId=request.GET.get('refId')
+    url="https://uat.esewa.com.np/epay/main"
+    d={
+        'amt':amount,
+        'scd':'EPAYTEST',
+        'rid':refId,
+        'pid':o_id
+    }
+    resp=req.post(url,d)
+    root=ET.fromstring(resp.content)
+    status=root[0].text.strip()
+    if status=='Success':
+        order_id=o_id.split('_')[0]  #this is for the order id which is sent in form with cart id and is separated by _  esewapayment.html
+        order=Order.objects.get(id=order_id)
+        order.payment_status=True
+        order.save()
+        cart_id=o_id.split('')[1]
+        cart=Cart.objects.get(id=cart_id)
+        cart.delete()
+        messages.add_message(request, messages.SUCCESS, 'order successfull')
+        return redirect('/order')
+    else:
+        messages.add_message(request, messages.ERROR, 'failed to complete order')
+        return redirect('/cart')

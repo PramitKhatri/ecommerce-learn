@@ -1,0 +1,61 @@
+{% extends 'layouts.html' %}
+{% load static %}
+
+{% block title %}
+<title>Ecommerce-Cart</title>
+{% include 'userpage/header.html' %}
+{% endblock %}
+
+
+{% block main-content %}
+
+<!-- start of cart section -->
+<div class="container">
+    {% for msg in messages %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+    <div class="alert alert-success">
+        {{msg}}
+    </div>
+    {% endif %}
+
+    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+    <div class="alert alert-danger">
+        {{msg}}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <h1 class="text-center">You are being redirected to Esewa, please wait .....</h1>
+            <div style="display: none;">
+                <!-- we have sent order and cart as context -->
+                <form action="https://uat.esewa.com.np/epay/main" method="POST"  id="esewa-form">  <!-- in production mode use: action="https://esewa.com.np/epay/main" method="POST" -->
+                    <input value="{{order.total_price}}" name="tAmt" type="hidden">
+                    <input value="{{order.total_price}}" name="amt" type="hidden">
+                    <input value="5" name="txAmt" type="hidden">
+                    <input value="2" name="psc" type="hidden">
+                    <input value="3" name="pdc" type="hidden">
+                    <input value="EPAYTEST" name="scd" type="hidden">
+                    <input value="{{order.id}}_{{cart.id}}" name="pid" type="hidden">
+                    <input value="http://127.0.0.1:8000/esewa_verify" type="hidden" name="su"> <!--when it in success-->
+                    <input value="{{request.build_absolute_url}}" type="hidden" name="fu">      <!--when it in failure-->
+                    <input value="Submit" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end of  cart section -->
+<script>
+    setTimeout(function(){
+        document.getElementById('esewa-form').submit()
+    },1000)
+</script>
+
+
+<!-- <img src="{% static 'images/a.jpg' %}" alt="" width="400"> -->
+{% include 'userpage/footer.html' %}
+{% endblock %}

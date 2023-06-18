@@ -9,5 +9,6 @@ urlpatterns=[
     path('cart',show_cart_items),
     path('deletecartitem/<int:cart_id>',delete_cart_item),
     path('order/<int:product_id>/<int:cart_id>',order_item),
-    path('myorder/',my_order)
+    path('myorder/',my_order),
+    path('esewa_verify',esewa_verify)
 ]

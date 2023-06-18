@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     'accounts',
     'userpage',
+    'adminspage'
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -85,8 +86,17 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_project', #this is from creating database in phpmyadmin, check the open xampp.txt for info
+        'USER':'root',
+        'PASSWORD':'',
+        'HOST':'localhost', #this can be the ip address 127.0.0.1 check the title of phpmyadmin
+        'PORT':' 3307',
+        'OPTIONS':{
+            'init_command':" SET sql_mode='STRICT_TRANS_TABLES'"   
+        }
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
