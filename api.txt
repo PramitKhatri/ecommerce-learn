@@ -1,0 +1,12 @@
+API
+-> Application Programming Interface
+
+REST -> JSON data
+{
+    'firstname':'ram'
+    'age':20
+}
+
+SOAP -> XML data
+
+esewa has bank information

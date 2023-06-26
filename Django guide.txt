@@ -12,6 +12,8 @@ T -Template (UI: User Interface)
 type in cmd : -> py -m ensurepip --upgrade
 This will install pip then you can install django
 
+//maybe install if necessary : pip install django-admin
+
 3: in cmd -> django-admin
 this should show available sub command which ensures django has been succesfully installed.
 
@@ -42,7 +44,7 @@ password: *anything*  (admin) /* password won't be seen when you type so don't b
 
 this should ask for username and password. this is from before when you created the super admin.
 
-pressing the 'Ctrl+C' twice will stop the server and has to be started again if required.
+pressing the 'Ctrl+C' twice in the terminal will stop the server and has to be started again if required.
 
 // typing -> python manage.py runserver 5000 'will start the server at http://127.0.0.1:5000 
 // this is to change the server quote number if numerous servers are required. it can be any number maybe?!

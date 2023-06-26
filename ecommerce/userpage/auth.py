@@ -7,7 +7,7 @@ def unauthenticated_user(view_dunction):
         if request.user.is_authentiacted:
             return redirect('/')
         else:
-            return view_dunction(request, *args,**kwargs)
+            return view_function(request, *args,**kwargs)
     return wrapper_function
 
 
